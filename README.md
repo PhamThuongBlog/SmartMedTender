@@ -297,10 +297,6 @@ This project is licensed under the MIT License — see the [LICENSE](LICENSE) fi
 
 Developed by the **MedTender Team** as part of the empirical software engineering research project.
 
-**Supervisor:** TS. Chu Hải — [Posts and Telecommunications Institute of Technology (PTIT)](https://ptit.edu.vn/)
-
-**Research Paper:** *Empirical Software Engineering — AI-Driven Medical Tender Management System*
-
 ---
 
 <p align="center">
