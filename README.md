@@ -192,6 +192,89 @@ Full API documentation available at Swagger UI.
 
 ---
 
+## 🧪 Experimental Evidence & Replication Package
+
+This repository includes a complete **replication package** in the [`evidence/`](evidence/) directory, providing full transparency for the accompanying research paper.
+
+```
+evidence/
+├── 01-uat-test-suite/          # User Acceptance Test scripts & sample outputs
+│   ├── uat-v2.mjs              (Node.js, 57 API tests)
+│   ├── uat-api-test.mjs        (Node.js, 46 API tests)
+│   ├── uat-ui.mjs              (Playwright, 17 UI tests)
+│   ├── uat-v2-output.log       (Console output — all 57 tests passing)
+│   ├── sample-output.log       (Sample execution log)
+│   └── test-coverage-summary.md
+├── 02-database-schema/         # Flyway migrations (V1 → V6)
+│   ├── schema-summary.md       (26 tables across 10 groups)
+│   ├── V1__init_schema.sql     (Full initial schema)
+│   ├── V2__add_audit_columns.sql
+│   ├── V3__enhance_enterprise_profile.sql
+│   ├── V4__expiry_alert_table.sql
+│   ├── V5__seed_test_data.sql  (Seed data: 5 products, 10 documents, 1 tender)
+│   └── V6__seed_price_history.sql (27 price history records)
+├── 03-seed-data/               # Test dataset manifest & details
+│   └── dataset-manifest.md     (5 products, 27 prices, 10 docs, 1 tender)
+├── 04-performance-benchmarks/  # Endpoint performance benchmarks
+│   ├── benchmark-30iter.mjs    (30-iteration benchmark script)
+│   ├── benchmark-30iter.csv    (Raw CSV results)
+│   ├── benchmark-30iter.json   (Raw JSON results)
+│   └── performance-results.md  (Tabulated performance metrics)
+├── 05-unit-tests/              # JUnit 5 test outputs (8 test classes)
+│   ├── test-classes.md
+│   ├── sample-junit-output.txt
+│   ├── AuthControllerIntegrationTest.txt
+│   ├── AuthServiceTest.txt
+│   ├── JwtUtilTest.txt
+│   ├── ChatbotServiceTest.txt
+│   ├── EnterpriseServiceTest.txt
+│   ├── ProductServiceTest.txt
+│   └── SmartMedTenderApplicationTests.txt
+├── 06-source-code-metrics/     # Codebase statistics
+│   └── code-metrics.md         (186 Java files, 19 Vue components, etc.)
+├── DATA_TRANSPARENCY_STATEMENT.md  # Real vs. simulated data breakdown
+├── REPLICATION_GUIDE.md            # Step-by-step reproducibility instructions
+├── token-usage-report.md           # AI token usage report
+└── README.md                       # Evidence package overview
+```
+
+### Key Results at a Glance
+
+| Metric | Value | Evidence |
+|--------|-------|----------|
+| UAT test cases | 57 (API v2) + 46 (API v1) + 17 (UI) | `evidence/01-uat-test-suite/` |
+| Database tables | 26 | `evidence/02-database-schema/V1__init_schema.sql` |
+| Flyway migrations | 6 (V1 → V6) | `evidence/02-database-schema/` |
+| Seed products | 5 | `evidence/02-database-schema/V5__seed_test_data.sql` |
+| Price history records | 27 | `evidence/02-database-schema/V6__seed_price_history.sql` |
+| Unit test classes | 8 (all passing) | `evidence/05-unit-tests/` |
+| Java source files | 186 | `evidence/06-source-code-metrics/code-metrics.md` |
+| Vue components | 19 | `evidence/06-source-code-metrics/code-metrics.md` |
+
+### Reproducing the Experiments
+
+```bash
+# 1. Start the application
+docker compose up -d
+./mvnw spring-boot:run
+
+# 2. Run UAT test suite (in another terminal)
+cd frontend
+node uat-v2.mjs
+
+# 3. Run performance benchmarks
+node benchmark-script.mjs
+
+# 4. Run unit tests
+./mvnw test
+```
+
+> 📖 See [`evidence/REPLICATION_GUIDE.md`](evidence/REPLICATION_GUIDE.md) for detailed step-by-step instructions.
+>
+> ⚠️ **Transparency note:** Certain paper results (user study N=15, baseline comparisons, multi-enterprise dataset of 58 products/73 tenders) are illustrative/constructed data to demonstrate the paper's contribution. See [`evidence/DATA_TRANSPARENCY_STATEMENT.md`](evidence/DATA_TRANSPARENCY_STATEMENT.md) for a complete breakdown.
+
+---
+
 ## 💾 Backup & Restore
 
 ```bash

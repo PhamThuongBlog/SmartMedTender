@@ -1,0 +1,26 @@
+# MedTender Performance Benchmark Results — 30 iterations × 9 endpoints
+# Date: 2026-06-09 18:37 ICT
+# Environment: Windows 11, Intel Core i7, 16GB RAM, Java 17 (OpenJDK), Spring Boot 3.4.5
+# Infrastructure: PostgreSQL 16 (Docker), Kafka 3.x (Docker), Redis 7.x (Docker)
+# Methodology: 3 warm-up iterations + 30 measured iterations per endpoint
+# Inter-request delay: 650ms (to stay under 100 req/min rate limit)
+# Measurement method: Node.js performance.now() — round-trip HTTP client latency
+
+Endpoint,Method,Mean_ms,SD_ms,95CI_Low_ms,95CI_High_ms,Min_ms,P95_ms,Max_ms,CV_pct,N,SLO_500ms
+GET /api/health,GET,4.42,1.34,3.94,4.90,4,6,11,30.35,30,PASS
+GET /api/products?size=5,GET,9.98,2.63,9.03,10.92,7,13,19,26.41,30,PASS
+GET /api/tenders?size=5,GET,10.21,2.82,9.20,11.22,7,14,22,27.63,30,PASS
+GET /api/documents?size=5,GET,20.51,5.06,18.70,22.32,14,31,32,24.65,30,PASS
+GET /api/expiry/alerts?size=3,GET,10.25,2.03,9.52,10.97,8,13,16,19.78,30,PASS
+GET /api/enterprises?size=3,GET,9.12,2.46,8.24,10.01,7,14,19,27.01,30,PASS
+POST /api/hsdt/export/word,POST,64.00,14.98,58.64,69.36,50,102,109,23.40,30,PASS
+POST /api/hsdt/export/pdf,POST,66.36,14.75,61.09,71.64,49,102,105,22.22,30,PASS
+POST /api/hsdt/export/zip,POST,72.87,15.17,67.44,78.29,58,110,125,20.81,30,PASS
+
+# AGGREGATE:
+# CRUD endpoints (mean of means): 10.75ms
+# Export endpoints (mean of means): 67.74ms
+# ALL endpoints under 500ms SLO: YES ✅ (270/270 requests)
+# Total requests including warmup: 297
+# Benchmark duration: 204 seconds
+# Rate limit triggered: 0 times

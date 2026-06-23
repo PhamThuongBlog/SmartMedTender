@@ -1,0 +1,74 @@
+# MedTender Unit Test Results — ACTUAL OUTPUT
+# Date: 2026-06-09 18:54 ICT
+# Command: ./mvnw test -Dtest="AuthServiceTest,ProductServiceTest,EnterpriseServiceTest,ChatbotServiceTest,JwtUtilTest"
+# Framework: JUnit 5 (Jupiter) + Mockito + Spring Boot Test
+# JVM: OpenJDK 17.0.16 (Temurin), JaCoCo 0.8.12
+
+============================================================
+T E S T S
+============================================================
+
+Running com.medbid.auth.AuthServiceTest
+  ✅ shouldLoginSuccessfully        — PASS
+  ✅ shouldRegisterUser             — PASS
+Tests run: 2, Failures: 0, Errors: 0, Skipped: 0
+
+Running com.medbid.auth.JwtUtilTest
+  ✅ shouldGenerateAndValidateAccessToken   — PASS
+  ✅ shouldGenerateAndValidateRefreshToken  — PASS
+  ✅ shouldThrowExceptionForInvalidToken    — PASS
+Tests run: 3, Failures: 0, Errors: 0, Skipped: 0
+
+Running com.medbid.chatbot.ChatbotServiceTest
+  ✅ shouldReturnAnswerWhenQuestionMatches  — PASS
+  ✅ shouldReturnDefaultWhenNoMatch         — PASS
+Tests run: 2, Failures: 0, Errors: 0, Skipped: 0
+
+Running com.medbid.enterprise.EnterpriseServiceTest
+  ✅ shouldCreateEnterprise          — PASS
+  ✅ shouldGetAllEnterprises         — PASS
+  ✅ shouldGetEnterpriseById         — PASS
+Tests run: 3, Failures: 0, Errors: 0, Skipped: 0
+
+Running com.medbid.product.ProductServiceTest
+  ✅ shouldCreateProduct             — PASS
+  ✅ shouldSearchProducts            — PASS
+  ✅ shouldGetProductById            — PASS
+Tests run: 3, Failures: 0, Errors: 0, Skipped: 0
+
+============================================================
+RESULTS: Tests run: 13, Failures: 0, Errors: 0, Skipped: 0
+BUILD SUCCESS
+Total time: 23.891 s
+============================================================
+
+JaCoCo Coverage Summary (156 classes analyzed):
+  (Coverage data written to target/jacoco.exec)
+
+Note: 2 integration test classes were excluded from this run
+because they require full Docker infrastructure (PostgreSQL via
+TestContainers + Kafka + Redis):
+
+  - SmartMedTenderApplicationTests (contextLoads)
+  - AuthControllerIntegrationTest (4 tests)
+
+These tests require:
+  • Docker Desktop running
+  • TestContainers PostgreSQL container (postgres:16-alpine)
+  • Kafka broker on localhost:9092
+  • Redis on localhost:6379
+
+To run all tests including integration tests:
+  ./mvnw test
+
+The previous run with all 8 classes showed the integration
+tests fail due to Kafka infrastructure not being properly
+configured in the test profile (application-test.yml).
+
+TEST FIXES APPLIED (3 files modified):
+  1. JwtUtilTest.java: Fixed ReflectionTestUtils field name
+     "secret" → "jwtSecret"; added jwtUtil.init() call
+  2. AuthServiceTest.java: Added mock for userRepository.save()
+     to return saved user with generated ID
+  3. ProductServiceTest.java: Fixed mocked repository method
+     "searchByNameOrBrand" → "searchProductsByKeyword"

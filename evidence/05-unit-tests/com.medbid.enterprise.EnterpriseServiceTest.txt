@@ -1,0 +1,4 @@
+-------------------------------------------------------------------------------
+Test set: com.medbid.enterprise.EnterpriseServiceTest
+-------------------------------------------------------------------------------
+Tests run: 3, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.383 s -- in com.medbid.enterprise.EnterpriseServiceTest
