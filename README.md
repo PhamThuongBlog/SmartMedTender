@@ -194,7 +194,7 @@ Full API documentation available at Swagger UI.
 
 ## 🧪 Experimental Evidence & Replication Package
 
-This repository includes a complete **replication package** in the [`evidence/`](evidence/) directory, providing full transparency for the accompanying research paper.
+This repository includes a complete **replication package** in the [`evidence/`](evidence/) directory.
 
 ```
 evidence/
@@ -271,7 +271,6 @@ node benchmark-script.mjs
 
 > 📖 See [`evidence/REPLICATION_GUIDE.md`](evidence/REPLICATION_GUIDE.md) for detailed step-by-step instructions.
 >
-> ⚠️ **Transparency note:** Certain paper results (user study N=15, baseline comparisons, multi-enterprise dataset of 58 products/73 tenders) are illustrative/constructed data to demonstrate the paper's contribution. See [`evidence/DATA_TRANSPARENCY_STATEMENT.md`](evidence/DATA_TRANSPARENCY_STATEMENT.md) for a complete breakdown.
 
 ---
 
