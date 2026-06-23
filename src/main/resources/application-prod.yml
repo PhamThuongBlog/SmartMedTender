@@ -1,0 +1,29 @@
+spring:
+  datasource:
+    url: ${DATASOURCE_URL:jdbc:postgresql://postgres:5432/medbid_prod}
+    username: ${DATASOURCE_USERNAME:medbid}
+    password: ${DATASOURCE_PASSWORD:}
+  jpa:
+    show-sql: false
+  flyway:
+    clean-disabled: true
+
+  kafka:
+    bootstrap-servers: ${KAFKA_BOOTSTRAP_SERVERS:kafka:9092}
+
+  data:
+    redis:
+      host: ${REDIS_HOST:redis}
+      port: 6379
+
+logging:
+  level:
+    com.medbid: INFO
+  file:
+    path: /var/log/medtender
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info,metrics,prometheus

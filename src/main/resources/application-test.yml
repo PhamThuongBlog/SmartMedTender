@@ -1,0 +1,40 @@
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5432/medbid_test
+  jpa:
+    show-sql: false
+  flyway:
+    clean-disabled: false
+  kafka:
+    bootstrap-servers: localhost:9092
+    producer:
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: org.apache.kafka.common.serialization.StringSerializer
+    consumer:
+      group-id: test-group
+      auto-offset-reset: earliest
+      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      value-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+  data:
+    redis:
+      host: localhost
+      port: 6379
+      timeout: 1000ms
+
+app:
+  cors:
+    allow-all-origins: true
+  ocr:
+    default-provider: tesseract
+    tesseract:
+      data-path: /usr/share/tesseract-ocr/4.00/tessdata
+  ai:
+    default-provider: openai
+  file:
+    upload-dir: ./target/test-uploads
+  backup:
+    dir: ./target/test-backups
+
+logging:
+  level:
+    com.medbid: DEBUG

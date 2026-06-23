@@ -1,0 +1,160 @@
+server:
+  port: 8082
+
+spring:
+  application:
+    name: smart-med-tender
+
+  datasource:
+    url: jdbc:postgresql://localhost:5432/medbid_db
+    username: postgres
+    password: 123456
+    hikari:
+      maximum-pool-size: 20
+      minimum-idle: 5
+      idle-timeout: 300000
+      connection-timeout: 20000
+
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: false
+    open-in-view: false
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+        jdbc:
+          batch_size: 20
+        order_inserts: true
+        order_updates: true
+
+  flyway:
+    enabled: true
+    baseline-on-migrate: true
+    locations: classpath:db/migration
+
+  kafka:
+    bootstrap-servers: localhost:9092
+    consumer:
+      group-id: medbid-group
+      auto-offset-reset: earliest
+      enable-auto-commit: false
+      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      value-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+    producer:
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: org.apache.kafka.common.serialization.StringSerializer
+      acks: all
+      retries: 3
+
+  data:
+    redis:
+      host: localhost
+      port: 6379
+      timeout: 2000ms
+
+  servlet:
+    multipart:
+      max-file-size: 50MB
+      max-request-size: 50MB
+
+  mail:
+    host: localhost
+    port: 1025
+    username:
+    password:
+    properties:
+      mail:
+        smtp:
+          auth: false
+          starttls:
+            enable: false
+
+  security:
+    user:
+      name: admin
+      password: 12345678@Abc
+
+app:
+  cors:
+    allowed-origins: http://localhost:3000,http://localhost:5173
+    allow-all-origins: false
+
+  jwt:
+    secret: ${JWT_SECRET:MedTender-Secure-JWT-Secret-Key-2026-AtLeast-256-Bits-Long!!}
+    access-token-expiration: 86400000
+    refresh-token-expiration: 604800000
+
+  ocr:
+    default-provider: tesseract
+    tesseract:
+      data-path: ${TESSDATA_PREFIX:/usr/share/tesseract-ocr/4.00/tessdata}
+      language: vie+eng
+
+  ai:
+    default-provider: openai
+    openai:
+      api-key: ${OPENAI_API_KEY:}
+      model: gpt-4o
+    gemini:
+      api-key: ${GEMINI_API_KEY:}
+      model: gemini-2.0-flash
+    claude:
+      api-key: ${CLAUDE_API_KEY:}
+      model: claude-sonnet-4-20250514
+
+  file:
+    upload-dir: ${FILE_UPLOAD_DIR:./uploads}
+    allowed-extensions: pdf,docx,doc,xlsx,xls,zip,png,jpg,jpeg
+    max-file-size: 52428800
+
+  backup:
+    dir: ${BACKUP_DIR:./backups}
+    offsite-dir: ${BACKUP_OFFSITE_DIR:./backups/offsite}
+    schedule: "0 0 2 * * ?"
+    rto-minutes: ${BACKUP_RTO:60}
+    rpo-minutes: ${BACKUP_RPO:1440}
+    retention-days: 30
+
+  notification:
+    email:
+      enabled: false
+      from: noreply@medtender.vn
+
+logging:
+  level:
+    root: INFO
+    com.medbid: DEBUG
+    org.springframework.security: INFO
+    org.springframework.kafka: INFO
+  file:
+    path: ./logs
+    name: medtender.log
+  logback:
+    rollingpolicy:
+      max-file-size: 10MB
+      max-history: 30
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info,metrics,prometheus,env,loggers
+      base-path: /actuator
+  metrics:
+    export:
+      prometheus:
+        enabled: true
+  health:
+    redis:
+      enabled: false
+    mail:
+      enabled: false
+
+springdoc:
+  api-docs:
+    path: /api-docs
+  swagger-ui:
+    path: /swagger-ui.html
+    operationsSorter: method
+    tagsSorter: alpha
